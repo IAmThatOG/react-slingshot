@@ -20,7 +20,10 @@ jobs:
             - ./node_modules
       - run:
           name: Linting
-          command: npm run lint
+          command: |
+            pwd
+            ls -lah
+            npm run lint
 
   test:
     executor: nodejs_executor
@@ -31,7 +34,10 @@ jobs:
           key: v1-shortlink-{{ checksum "package-lock.json" }}
       - run:
           name: Run Tests
-          command: npm run test
+          command: |
+            pwd
+            ls -lah
+            npm run test
 
   analyze:
     executor: nodejs_executor
