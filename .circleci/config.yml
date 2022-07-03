@@ -9,6 +9,7 @@ jobs:
   build:
     executor: nodejs_executor
     steps:
+      - checkout
       - run:
           name: Install Packages
           command: npm i
@@ -24,6 +25,7 @@ jobs:
   test:
     executor: nodejs_executor
     steps:
+      - checkout
       - restore_cache:
           name: Restore Cache
           key:
@@ -35,6 +37,7 @@ jobs:
   analyze:
     executor: nodejs_executor
     steps:
+      - checkout
       - restore_cache:
           name: Restore Cache
           key:
