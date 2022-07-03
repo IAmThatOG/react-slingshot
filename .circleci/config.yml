@@ -1,0 +1,55 @@
+version: 2.1
+
+executors:
+  nodejs_executor:
+    docker:
+      - image: cimg/node:14.19.2
+
+jobs:
+  build:
+    executor: nodejs_executor
+    steps:
+      - run:
+          name: Install Packages
+          command: npm i
+      - save_cache:
+          name: Saving Files to Cache
+          key: v1-shortlink-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/node_modules
+      - run:
+          name: Linting
+          command: npm run lint
+
+  test:
+    executor: nodejs_executor
+    steps:
+      - restore_cache:
+          name: Restore Cache
+          key:
+            - v1-shortlink-{{ checksum "package-lock.json" }}
+      - run:
+          name: Run Tests
+          command: npm run test
+
+  analyze:
+    executor: nodejs_executor
+    steps:
+      - restore_cache:
+          name: Restore Cache
+          key:
+            - v1-shortlink-{{ checksum "package-lock.json" }}
+      - run:
+          name: Run Analysis
+          command: npm audit
+
+workflows:
+  node_workflow:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - analyze:
+          requires:
+            - test
