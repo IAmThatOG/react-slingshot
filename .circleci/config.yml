@@ -17,7 +17,7 @@ jobs:
           name: Saving Files to Cache
           key: v1-shortlink-{{ checksum "package-lock.json" }}
           paths:
-            - ~/node_modules
+            - ./node_modules
       - run:
           name: Linting
           command: npm run lint
@@ -42,7 +42,10 @@ jobs:
           key: v1-shortlink-{{ checksum "package-lock.json" }}
       - run:
           name: Run Analysis
-          command: npm audit
+          command: |
+            pwd
+            ls -lah
+            npm audit
 
 workflows:
   node_workflow:
