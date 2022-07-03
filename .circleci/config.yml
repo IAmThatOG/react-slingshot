@@ -3,7 +3,7 @@ version: 2.1
 executors:
   nodejs_executor:
     docker:
-      - image: cimg/node:14.19.2
+      - image: circleci/node:13.8.0
 
 jobs:
   build:
