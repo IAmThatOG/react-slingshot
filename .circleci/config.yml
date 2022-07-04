@@ -15,7 +15,7 @@ jobs:
           command: npm i
       - save_cache:
           name: Saving Files to Cache
-          key: v1-shortlink-{{ checksum "package-lock.json" }}
+          key: v1-shortlink-1
           paths:
             - ./node_modules
       - run:
@@ -31,7 +31,7 @@ jobs:
       - checkout
       - restore_cache:
           name: Restore Cache
-          key: v1-shortlink-{{ checksum "package-lock.json" }}
+          key: v1-shortlink-1
       - run:
           name: Run Tests
           command: |
@@ -45,7 +45,7 @@ jobs:
       - checkout
       - restore_cache:
           name: Restore Cache
-          key: v1-shortlink-{{ checksum "package-lock.json" }}
+          key: v1-shortlink-1
       - run:
           name: Run Analysis
           command: |
